@@ -59,6 +59,26 @@ public class test {
     }
 
     
+    @Test
+    public void testConsultarMovimientos() throws SQLException {
+        CajeroV1.consultarMovimientos(getConnection(), "ES12345678901234567890");
+
+        assertTrue(outContent.toString().contains("Movimientos de la cuenta"));
+    }
+
+    @Test
+    public void testListarCuentasCliente() throws SQLException {
+        CajeroV1.listarCuentasCliente(getConnection(), "123456789");
+
+        assertTrue(outContent.toString().contains("Cuentas del cliente con DNI"));
+    }
+
+    @Test
+    public void testConsultarInformacion() throws SQLException {
+        CajeroV1.consultarInformacion(getConnection(), "123456789");
+
+        assertTrue(outContent.toString().contains("Cliente con dni"));
+    }
 
     
 }
