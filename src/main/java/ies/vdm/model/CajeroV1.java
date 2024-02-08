@@ -34,34 +34,34 @@ public class CajeroV1 {
                 switch (opcion) {
                     case 1:
                         System.out.print("Ingrese el número de cuenta: ");
-                        scanner.nextLine(); // Limpiar el buffer
+                        scanner.nextLine(); 
                         numCuenta = scanner.nextLine();
                         retirarFondos(connection, numCuenta);
                         break;
 
                     case 2:
                         System.out.print("Ingrese el numero de cuenta: ");
-                        scanner.nextLine(); // Limpiar el buffer
+                        scanner.nextLine();
                         numCuenta = scanner.nextLine();
                         ingresarFondos(connection, numCuenta);
                         break;
 
                     case 3:
                         System.out.print("Ingrese el número de cuenta: ");
-                        scanner.nextLine(); // Limpiar el buffer
+                        scanner.nextLine();
                         numCuenta = scanner.nextLine();
                         consultarMovimientos(connection, numCuenta);
                         break;
 
                     case 4:
                         System.out.print("Ingrese el DNI del cliente: ");
-                        scanner.nextLine(); // Limpiar el buffer
+                        scanner.nextLine(); 
                         String dniCliente = scanner.nextLine();
                         listarCuentasCliente(connection, dniCliente);
                         break;
                     case 5:
                         System.out.print("Ingrese el DNI del cliente: ");
-                        scanner.nextLine(); // Limpiar el buffer
+                        scanner.nextLine(); 
                         dniCliente = scanner.nextLine();
                         consultarInformacion(connection, dniCliente);
                         break;

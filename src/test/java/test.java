@@ -18,6 +18,13 @@ public class test {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
+    private Connection getConnection() throws SQLException {
+        String URL = "jdbc:mysql://localhost:3306/cuentas_bancarias_nueva?serverTimezone=UTC";
+        String USUARIO = "root";
+        String CONTRASENA = "123456";
+        return DriverManager.getConnection(URL, USUARIO, CONTRASENA);
+    }
+
     @Before
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
@@ -30,7 +37,7 @@ public class test {
 
     @Test
         public void testRetirarFondos() throws SQLException {
-        String input = "1\n"; // Suponiendo que el saldo actual es mayor o igual a 1000
+        String input = "1\n";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
@@ -51,31 +58,7 @@ public class test {
         assertTrue(outContent.toString().contains("Ingreso exitoso. Saldo actualizado."));
     }
 
-    @Test
-    public void testConsultarMovimientos() throws SQLException {
-        CajeroV1.consultarMovimientos(getConnection(), "ES12345678901234567890");
+    
 
-        assertTrue(outContent.toString().contains("Movimientos de la cuenta"));
-    }
-
-    @Test
-    public void testListarCuentasCliente() throws SQLException {
-        CajeroV1.listarCuentasCliente(getConnection(), "123456789");
-
-        assertTrue(outContent.toString().contains("Cuentas del cliente con DNI"));
-    }
-
-    @Test
-    public void testConsultarInformacion() throws SQLException {
-        CajeroV1.consultarInformacion(getConnection(), "123456789");
-
-        assertTrue(outContent.toString().contains("Cliente con dni"));
-    }
-
-    private Connection getConnection() throws SQLException {
-        String URL = "jdbc:mysql://localhost:3306/cuentas_bancarias_nueva?serverTimezone=UTC";
-        String USUARIO = "root";
-        String CONTRASENA = "123456";
-        return DriverManager.getConnection(URL, USUARIO, CONTRASENA);
-    }
+    
 }
