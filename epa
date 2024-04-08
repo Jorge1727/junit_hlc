@@ -1,0 +1,82 @@
+//Declaraciones
+const URL_PALABRAS = "http://localhost:3000/palabras";
+
+//Obtener datos del servidor
+let palabras= []
+
+function obtenerDatos(){
+    fetch(URL_PALABRAS)
+    .then( res => res.json())
+    .then( datos => {
+        palabras = datos
+        console.log(datos)
+        console.log(palabras)
+    });
+}
+obtenerDatos();
+
+let arrayBi = [
+    new Array(20),new Array(20),
+    new Array(20),new Array(20),
+    new Array(20),new Array(20),
+    new Array(20),new Array(20),
+    new Array(20),new Array(20),
+    new Array(20),new Array(20),
+    new Array(20),new Array(20),
+    new Array(20),new Array(20),
+    new Array(20),new Array(20),
+    new Array(20),new Array(20),
+]
+
+let juego = {
+    palabrasJuego :[],
+    acertadas :[],
+
+}
+
+
+
+console.log(arrayBi)
+
+function ponerPalabrasEnJuego(){
+    
+    puestas = 0;
+    while(puestas != 3){
+    
+        let palabra = palabras[~~(Math.random() * palabras.length)]
+        rndm1 = 10
+        rndm2 = 16;
+        let comprobarEntrada = 20 - rndm2 >= palabra.length? true : false
+        let comprobarSiVacio = comprobarVacio(arrayBi, rndm1, rndm2, palabra);
+        
+        if(comprobarEntrada && comprobarSiVacio){
+            for(let i = 0; i < palabra.length;i++){
+                
+                arrayBi[rndm1][rndm2] = palabra[i];
+                rndm2++;
+            }
+            puestas++;
+            juego.palabrasJuego.push(palabra);
+        }
+        else{
+            ponerPalabrasEnJuego();
+        }
+    }
+}
+
+
+ponerPalabrasEnJuego();
+
+function comprobarVacio(arr, aleatorio1, aleatorio2, palabraActual){
+    
+    for(let i = 0; i <palabraActual.length;i++){
+        
+        if(arr[aleatorio1][aleatorio2] != undefined){
+            return false;
+        }
+        aleatorio2++
+    }
+    return true;
+}
+
+console.log(arrayBi)
