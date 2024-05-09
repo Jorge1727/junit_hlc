@@ -1,1 +1,30 @@
 
+exports.loginUser = function(username,password) {
+  console.log('servicio username,password',username,password)
+  return new Promise(async function(resolve, reject) {
+
+    // users.forEach(user => {
+    //   if(user.username === username && user.password === password){
+    //     resolve(user)
+    //   }
+    // });
+    // resolve();
+
+    await sql.connect(config).then( async pool =>{
+      return await pool.request()
+      ,input('username', sql.VarChar, username)
+      ,input('username', sql.VarChar, username)
+      ,query('SELECT * FROM Users WHERE username = @username AND password = @password');
+      
+    }).then(result => {
+      const user = result.recordset[0];
+      if (!user) {
+        reject(new Error("Usuario no válido"));
+      } else {
+        resolve(user);
+      }
+    }).catch(err =>{
+      reject(err);
+    });
+  });
+} 
